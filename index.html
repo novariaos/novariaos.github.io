@@ -78,12 +78,11 @@
         <h1 class="text-4xl font-light text-center mt-6 mb-6">What is it?</h1>
 
         <p class="mt-4 mr-10 text-gray-200 text-center">
-            <span class="text-[#feb208]">Novaria</span> is an experimental operating system designed for
-            educational purposes.
+            <span class="text-[#feb208]">Novaria</span> is an experimental operating system.
             It uses <span class="text-[#feb208]">NVM</span> (Novaria Virtual Machine) to safely execute bytecode.
             Novaria has a unique rights management system called <span class="text-[#feb208]">CAPS</span>
-            (CAPabilities). This system manages the rights of
-            any running process. <br>The OS already has <span id="stars" class="text-[#feb208]">13</span> stars.
+            (CAPabilitieS). This system manages the rights of
+            any running process.
         </p>
 
         <div class="clear-both"></div>
@@ -120,7 +119,7 @@
         </div>
 
         <div class="flex justify-center">
-            <a href="https://github.com/z3nnix/NovariaOS/blob/main/docs/1.2-Build-from-source.md" class="get-novaria">Get Novaria</a>
+            <a href="https://github.com/novariaos/novariaos-src/releases" class="get-novaria">Get Novaria</a>
         </div>
 
         <h1 class="text-4xl font-light text-center mt-32 mb-6">Roadmap</h1>
@@ -182,81 +181,9 @@
 
         </div>
 
-        <span class="block text-sm mt-10 text-body sm:text-center">© 2023-2025 <a href="https://t.me/NovariaOS" class="hover:underline">Novaria</a>. <span class="text-[#feb208]">Source code is available</span>.
+        <span class="block text-sm mt-10 text-body sm:text-center">© 2023-2026 <a href="https://t.me/NovariaOS" class="hover:underline">Novaria</a>. <span class="text-[#feb208]">Source code is available</span>.
 
     </main>
-
-    <script>
-        const syscallsCount = document.getElementById('syscalls');
-        const instructionsCount = document.getElementById('instructions');
-        const starsCount = document.getElementById('stars');
-
-        syscallsCount.textContent = '13';
-        instructionsCount.textContent = '28';
-
-        async function countStars() {
-            try {
-                let page = 1;
-                let allStargazers = [];
-                let hasMore = true;
-
-                while (hasMore) {
-                    const response = await fetch(`https://api.github.com/repos/z3nnix/NovariaOS/stargazers?page=${page}&per_page=100`, {
-                        headers: {
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    
-                    if (data.length === 0) {
-                        hasMore = false;
-                    } else {
-                        allStargazers = allStargazers.concat(data);
-                        page++;
-
-                        const linkHeader = response.headers.get('Link');
-                        if (linkHeader && !linkHeader.includes('rel="next"')) {
-                            hasMore = false;
-                        }
-                    }
-                }
-
-                starsCount.textContent = allStargazers.length.toString();
-                
-            } catch (error) {
-                console.error('Error fetching stars:', error);
-                starsCount.textContent = 'N/A';
-            }
-        }
-
-        async function countStarsSimple() {
-            try {
-                const response = await fetch('https://api.github.com/repos/z3nnix/NovariaOS', {
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                starsCount.textContent = data.stargazers_count.toString();
-                
-            } catch (error) {
-                console.error('Error fetching repo info:', error);
-                starsCount.textContent = 'N/A';
-            }
-        }
-
-        countStarsSimple();
-    </script>
 
 </body>
 
